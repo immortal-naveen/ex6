@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management System</title>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leave Management System</h1>
+        <form id="leave-form">
+            <div class="form-group">
+                <label for="employee-name">Employee Name</label>
+                <input type="text" id="employee-name" name="employee-name" required>
+            </div>
+            <div class="form-group">
+                <label for="leave-type">Leave Type</label>
+                <select id="leave-type" name="leave-type" required>
+                    <option value="sick">Sick Leave</option>
+                    <option value="vacation">Vacation</option>
+                    <option value="personal">Personal Leave</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="leave-start">Start Date</label>
+                <input type="date" id="leave-start" name="leave-start" required>
+            </div>
+            <div class="form-group">
+                <label for="leave-end">End Date</label>
+                <input type="date" id="leave-end" name="leave-end" required>
+            </div>
+            <div class="form-group">
+                <label for="leave-reason">Reason for Leave</label>
+                <textarea id="leave-reason" name="leave-reason" rows="4" required></textarea>
+            </div>
+            <button type="submit">Submit Leave Request</button>
+        </form>
+
+        <h2>Submitted Leave Requests</h2>
+        <table id="leave-requests-table">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Submitted leave requests will appear here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // This script should be placed after the DOM is loaded to ensure the elements are accessible.
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById('leave-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Collect form data
+                const employeeName = document.getElementById('employee-name').value;
+                const leaveType = document.getElementById('leave-type').value;
+                const leaveStart = document.getElementById('leave-start').value;
+                const leaveEnd = document.getElementById('leave-end').value;
+                const leaveReason = document.getElementById('leave-reason').value;
+
+                // Create a new table row with the submitted leave request data
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${employeeName}</td>
+                    <td>${leaveType}</td>
+                    <td>${leaveStart}</td>
+                    <td>${leaveEnd}</td>
+                    <td>${leaveReason}</td>
+                `;
+
+                // Add the new row to the table
+                document.getElementById('leave-requests-table').querySelector('tbody').appendChild(newRow);
+
+                // Clear the form
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
